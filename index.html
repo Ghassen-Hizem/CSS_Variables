@@ -1,12 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>Scoped CSS Variables and JS</title>
+  <link rel="icon" href="https://fav.farm/🔥" />
 </head>
 <body>
-    
+  <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
+
+  <div class="controls">
+    <label for="spacing">Spacing:</label>
+    <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+
+    <label for="blur">Blur:</label>
+    <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+
+    <label for="base">Base Color</label>
+    <input id="base" type="color" name="base" value="#ffc600">
+  </div>
+
+  <img id="image" src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+
+  <style>
+
+:root {
+  --xtransaltion: 0px;
+  --ytranslation: 0px;
+  --blur_variable: 0px;
+}
+
+    #image{
+      transform: translate( var(--xtransaltion)  , var(--ytranslation));
+      filter: blur(var(--blur_variable));
+    }
+
+
+    body {
+      text-align: center;
+      background: #193549;
+      color: white;
+      font-family: 'helvetica neue', sans-serif;
+      font-weight: 100;
+      font-size: 50px;
+    }
+
+    .controls {
+      margin-bottom: 50px;
+    }
+
+    input {
+      width: 100px;
+    }
+  </style>
+
+  <script>
+   document.getElementById("spacing").addEventListener("change" , (event) =>{
+        document.getElementById("image").style.setProperty("--xtransaltion", `${event.target.value}` + "px")
+        document.getElementById("image").style.setProperty("--ytranslation", `${event.target.value}` + "px")
+       
+   })
+   document.getElementById("blur").addEventListener("change" , (event) =>{
+      document.getElementById("image").style.setProperty("--blur_variable", `${event.target.value}` + "px" )
+   })
+     
+    document.getElementsByClassName("hl")[0].style.color = `${document.getElementById("base").value}`
+    document.getElementById("base").addEventListener('change' , (event)=>{
+        document.getElementsByClassName("hl")[0].style.color = `${event.target.value}`;
+       
+    })
+
+  </script>
+
 </body>
 </html>
